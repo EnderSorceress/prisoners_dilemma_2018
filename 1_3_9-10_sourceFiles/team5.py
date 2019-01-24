@@ -25,28 +25,24 @@ def move(my_history, their_history, my_score, their_score):
     
     # Analyze my_history and their_history and/or my_score and their_score.
     # Decide whether to return 'c' or 'b'.
-    if len(my_history) == 0:				# Betray in the first-round.
+
+def move(my_history, their_history, my_score, their_score):
+    if len(my_history) == 0:			#collude first round.
+        return 'c'		
+    elif len(my_history) == 1:			# Betray in the second-round.
         return 'b'
-    elif len(my_history) == 1:				# Betray in the second-round.
+    elif their_history[-1]=='b':		#betray if they betray.
         return 'b'
-    elif(their_history) == 2:				# Collude in the third-round.
-        return 'c'
-    elif(their_history[-3:]) == 'bbb':		# If opponent betrays 3 consecutive times (3x) in the previous round return collude.
-        return 'c'
-    elif(their_history[-3:]) == 'bbc':		# If opponent betrays 2 times (2x) and colludes in the previous round return collude.
-        return 'c'
-    elif(their_history[-3:]) == 'bcb':		# If opponent betrays once 
+    elif(their_history[-3:]) == 'bbb':		# If opponent betrays 3 consecutive times (3x) in the previous round return betray.
+        return 'b'
+    elif(their_history[-3:]) == 'bbc':		# If opponent betrays 2 times (2x) and colludes in the previous round return betray.
+        return 'b'
+    elif(their_history[-3:]) == 'bcb':		# If opponent betrays, collude, betray; return collude.
 	return 'c'
-    elif(their_history[-3:]) == 'cbb':
-	return 'b'
-    elif len(my_history) == 3:
+    elif(their_history[-3:]) == 'cbb': 		#if opponent collude then betrays. collude
 	return 'c'
-    elif len(my_history) == 4:
-	return 'b'
-    elif len(my_history) == 5:
-	return 'b'
-    elif len(my_history) == 6:
-	return 'c'
+    elif their_score > my_score :		#if their score greater than my score, return b else return c.
+        return 'b'
     else:
         return 'c'
 
